@@ -61,15 +61,13 @@ const AuthContext = createContext({ ...initialState });
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const login = async ({ email, password }, callback) => {
-    console.log("email and password", email, password);
     try {
       const response = await apiService.post("/auth/login", {
         email,
         password,
       });
-      console.log("response", response); //undefined
-      const { user, accessToken } = response.data;
-      console.log("user", user);
+      console.log("response", response);
+      const { user, accessToken } = response.data.data;
       setSession(accessToken);
       dispatch({
         type: LOGIN_SUCCESS,
@@ -82,7 +80,8 @@ function AuthProvider({ children }) {
   };
   const register = async ({ name, email, password }, callback) => {
     const response = await apiService.post("/users", { name, email, password });
-    const { user, accessToken } = response.data;
+    console.log("response", response);
+    const { user, accessToken } = response.data.data;
     setSession(accessToken);
     dispatch({
       type: REGISTER_SUCCESS,

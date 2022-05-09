@@ -29,7 +29,7 @@ const PostForm = () => {
     setValue,
     formState: { isSubmitting },
   } = methods;
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const onSubmit = (data) => {
     dispatch(createPost(data)).then(() => reset());
   };

@@ -16,9 +16,9 @@ const Router = () => {
       <Route
         path="/"
         element={
-          // <AuthRequire>
-          <MainLayout />
-          // </AuthRequire>
+          <AuthRequire>
+            <MainLayout />
+          </AuthRequire>
         }
       >
         <Route index element={<Homepage />} />

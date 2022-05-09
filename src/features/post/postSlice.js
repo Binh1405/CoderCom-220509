@@ -5,7 +5,7 @@ const initialState = {
   isLoading: false,
   error: null,
   posts: [],
-  totalPosts: null,
+  totalPosts: Number,
   postsById: {},
   currentPagePosts: [],
 };
@@ -32,6 +32,7 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       const { count, posts } = action.payload;
+      console.log("posts", posts);
       if (state.currentPagePosts.length % POST_PER_PAGE === 0)
         state.currentPagePosts.pop();
       posts.forEach((post) => {
@@ -53,7 +54,8 @@ export const createPost =
         content,
         image,
       });
-      dispatch(slice.actions.createPostSuccess(response.data));
+      console.log("response", response);
+      dispatch(slice.actions.createPostSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
@@ -62,13 +64,15 @@ export const createPost =
 export const getPosts =
   ({ userId, page, limit = POST_PER_PAGE }) =>
   async (dispatch) => {
-    const params = { page, limit };
     dispatch(slice.actions.startLoading());
     try {
+      const params = { page, limit };
+      console.log("params", params);
       const response = await apiService.get(`/posts/user/${userId}`, {
         params,
       });
-      dispatch(slice.actions.getPostSuccess(response.data));
+      console.log("response", response);
+      dispatch(slice.actions.getPostSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

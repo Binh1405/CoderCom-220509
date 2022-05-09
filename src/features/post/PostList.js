@@ -11,7 +11,8 @@ const PostList = ({ userId }) => {
   const { currentPagePosts, postsById, totalPosts, isLoading } = useSelector(
     (state) => state.post
   );
-  const posts = currentPagePosts.map((post) => postsById[post.id]);
+  const posts = currentPagePosts.map((postId) => postsById[postId]);
+  console.log("posts", posts);
   const dispatch = useDispatch();
   useEffect(() => {
     if (userId) dispatch(getPosts({ userId, page }));

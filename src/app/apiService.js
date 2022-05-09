@@ -19,6 +19,7 @@ apiService.interceptors.request.use(
 apiService.interceptors.response.use(
   (response) => {
     console.log("Response", response);
+    return response;
   },
   function (error) {
     console.log("RESPONSE ERROR", { error });

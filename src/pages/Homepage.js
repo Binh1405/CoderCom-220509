@@ -32,6 +32,7 @@ const TabsWrapperStyle = styled("div")(({ theme }) => ({
 
 const Homepage = () => {
   const { user } = useAuth();
+  console.log("user", user);
   const [currentTab, setCurrentTab] = useState("profile");
   const handleChangeTab = (newValue) => {
     setCurrentTab(newValue);
@@ -81,11 +82,11 @@ const Homepage = () => {
             ))}
           </Tabs>
         </TabsWrapperStyle>
-        {PROFILE_TABS.map((tab) => {
-          const isMatched = tab.value === currentTab;
-          return isMatched && <Box key={tab.value}>{tab.component}</Box>;
-        })}
       </Card>
+      {PROFILE_TABS.map((tab) => {
+        const isMatched = tab.value === currentTab;
+        return isMatched && <Box key={tab.value}>{tab.component}</Box>;
+      })}
     </Container>
   );
 };
