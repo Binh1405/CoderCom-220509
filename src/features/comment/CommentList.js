@@ -7,7 +7,6 @@ import LoadingScreen from "../../components/LoadingScreen";
 import CommentCard from "./CommentCard";
 
 const CommentList = ({ postId }) => {
-  console.log("postId", postId);
   const {
     commentsByPost,
     commentsById,
@@ -23,13 +22,6 @@ const CommentList = ({ postId }) => {
       isLoading: state.comment.isLoading,
     }),
     shallowEqual
-  );
-  console.log(
-    commentsByPost,
-    commentsById,
-    totalComments,
-    isLoading,
-    currentPage
   );
   let renderComments;
   if (commentsByPost) {

@@ -39,6 +39,13 @@ const slice = createSlice({
       state.totalCommentByPost[postId] = count;
       state.currentPageByPost[postId] = page;
     },
+    sendCommentReaction(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const { commentId, reactions } = action.payload;
+      console.log("action.payload", action.payload); //not action..
+      state.commentsById[commentId].reactions = reactions;
+    },
   },
 });
 
@@ -75,6 +82,28 @@ export const getComments =
           ...response.data.data,
           postId,
           page,
+        })
+      );
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const sendCommentReaction =
+  ({ commentId, emoji }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.post(`/reactions`, {
+        targetType: "Comment",
+        targetId: commentId,
+        emoji,
+      });
+      console.log("response", response); //ok
+      dispatch(
+        slice.actions.sendCommentReactionSuccess({
+          commentId,
+          reactions: response.data.data,
         })
       );
     } catch (error) {

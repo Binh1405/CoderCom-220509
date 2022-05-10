@@ -2,10 +2,13 @@ import { IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
+import { useDispatch } from "react-redux";
+import { sendPostReaction } from "./postSlice";
 
 const PostReaction = ({ post }) => {
+  const dispatch = useDispatch();
   const handleClick = (emoji) => {
-    console.log("click", emoji);
+    dispatch(sendPostReaction({ postId: post._id, emoji }));
   };
   return (
     <Stack direction="row" alignItem="center">
