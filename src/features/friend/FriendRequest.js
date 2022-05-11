@@ -8,12 +8,12 @@ import {
   Grid,
   Container,
 } from "@mui/material";
-import { getFriends } from "./friendSlice";
+import { getFriendRequests } from "./friendSlice";
 import SearchInput from "../../components/SearchInput";
 import { useDispatch, useSelector } from "react-redux";
 import UserCard from "./UserCard";
 
-const FriendList = () => {
+const FriendRequest = () => {
   const [filterName, setFilterName] = useState("");
   const [page, setPage] = React.useState(1);
   const { currentPageUsers, usersById, totalUsers, totalPages } = useSelector(
@@ -22,7 +22,7 @@ const FriendList = () => {
   const users = currentPageUsers.map((userId) => usersById[userId]);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getFriends({ page, filterName }));
+    dispatch(getFriendRequests({ page, filterName }));
   }, [page, filterName, dispatch]);
   const handleSubmit = (searchQuery) => {
     setFilterName(searchQuery);
@@ -30,7 +30,7 @@ const FriendList = () => {
   return (
     <Container>
       <Typography variant="h4" sx={{ mb: 3 }}>
-        Friends
+        Friend Requests
       </Typography>
       <Card sx={{ p: 3 }}>
         <Stack spacing={2}>
@@ -42,10 +42,10 @@ const FriendList = () => {
               sx={{ color: "text.secondary", ml: 1 }}
             >
               {totalUsers > 1
-                ? `${totalUsers} friends found`
+                ? `${totalUsers} requests found`
                 : totalUsers === 1
-                ? `${totalUsers} friend found`
-                : "No friend found"}
+                ? `${totalUsers} request found`
+                : "No request found"}
             </Typography>
             <Pagination
               count={totalPages}
@@ -56,7 +56,7 @@ const FriendList = () => {
         </Stack>
         <Grid container spacing={3} my={1}>
           {users.map((user) => (
-            <Grid key={user._id} item xs={12} md={4}>
+            <Grid key={user._id} item xs={12} md={6}>
               <UserCard profile={user} />
             </Grid>
           ))}
@@ -66,4 +66,4 @@ const FriendList = () => {
   );
 };
 
-export default FriendList;
+export default FriendRequest;

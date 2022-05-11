@@ -6,7 +6,7 @@ import ContactMailIcon from "@mui/icons-material/ContactMail";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Profile from "../features/user/Profile";
 import FriendList from "../features/friend/FriendList";
-import FriendRequests from "../features/friend/FriendRequests";
+import FriendRequest from "../features/friend/FriendRequest";
 import AddFriend from "../features/friend/AddFriend";
 import { Card, Container, Tab, Tabs } from "@mui/material";
 import { capitalCase } from "change-case";
@@ -51,7 +51,7 @@ const Homepage = () => {
     {
       value: "requests",
       icon: <ContactMailIcon sx={{ fontSize: 24 }} />,
-      component: <FriendRequests />,
+      component: <FriendRequest />,
     },
     {
       value: "add_friends",
