@@ -1,5 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
+import { useSelector } from "react-redux";
 import apiService from "../app/apiService";
+import { updateUserProfile } from "../features/user/userSlice";
 import { isValidToken } from "../utils/jwt";
 
 const initialState = {
@@ -42,6 +44,43 @@ const reducer = (state, action) => {
         isAuthenticated: false,
         user: null,
       };
+    case UPDATE_PROFILE:
+      const {
+        name,
+        avatarUrl,
+        coverUrl,
+        aboutMe,
+        city,
+        country,
+        company,
+        jobTitle,
+        facebookLink,
+        instagramLink,
+        linkedinLink,
+        twitterLink,
+        friendCount,
+        postCount,
+      } = action.payload;
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          name,
+          avatarUrl,
+          coverUrl,
+          aboutMe,
+          city,
+          country,
+          company,
+          jobTitle,
+          facebookLink,
+          instagramLink,
+          linkedinLink,
+          twitterLink,
+          friendCount,
+          postCount,
+        },
+      };
     default:
       return state;
   }
@@ -59,6 +98,7 @@ const setSession = (accessToken) => {
 const AuthContext = createContext({ ...initialState });
 
 function AuthProvider({ children }) {
+  const updated = useSelector((state) => state.user.updatedProfile);
   const [state, dispatch] = useReducer(reducer, initialState);
   const login = async ({ email, password }, callback) => {
     try {
@@ -123,6 +163,13 @@ function AuthProvider({ children }) {
     };
     initialize();
   }, []);
+  useEffect(() => {
+    if (updated)
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: updated,
+      });
+  }, [dispatch, updated]);
 
   return (
     <AuthContext.Provider value={{ ...state, login, register, logout }}>
