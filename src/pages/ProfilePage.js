@@ -1,6 +1,6 @@
 import { Card, Container } from "@mui/material";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUser } from "../features/user/userSlice";
 import LoadingScreen from "../components/LoadingScreen";
@@ -9,7 +9,10 @@ import Profile from "../features/user/Profile";
 const ProfilePage = () => {
   const params = useParams();
   const userId = params.userId;
-  const { selectedUser, isLoading } = useSelector((state) => state.user);
+  const { selectedUser, isLoading } = useSelector(
+    (state) => state.user,
+    shallowEqual
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUser(userId));
