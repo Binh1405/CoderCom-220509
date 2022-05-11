@@ -1,7 +1,33 @@
-import React from "react";
-
+import { Card, Container } from "@mui/material";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getUser } from "../features/user/userSlice";
+import LoadingScreen from "../components/LoadingScreen";
+import ProfileCover from "../features/user/ProfileCover";
+import Profile from "../features/user/Profile";
 const ProfilePage = () => {
-  return <div>ProfilePage</div>;
+  const params = useParams();
+  const userId = params.userId;
+  const { selectedUser, isLoading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser(userId));
+  }, [dispatch, userId]);
+  return (
+    <Container>
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <>
+          <Card sx={{ mb: 3, height: 280, position: "relative" }}>
+            {selectedUser && <ProfileCover profile={selectedUser} />}
+          </Card>
+          {selectedUser && <Profile profile={selectedUser} />}
+        </>
+      )}
+    </Container>
+  );
 };
 
 export default ProfilePage;
