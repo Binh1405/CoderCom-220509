@@ -66,8 +66,8 @@ function AuthProvider({ children }) {
         email,
         password,
       });
-      console.log("response", response);
       const { user, accessToken } = response.data.data;
+      console.log("accessToken", accessToken);
       setSession(accessToken);
       dispatch({
         type: LOGIN_SUCCESS,
