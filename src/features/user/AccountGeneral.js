@@ -68,13 +68,13 @@ function AccountGeneral() {
               <FTextField name="email" label="Email" disabled />
               <FTextField name="jobTitle" label="Job Title" />
               <FTextField name="company" label="Company" />
-              <FTextField name="phonenumber" label="Phone Number" />
+              <FTextField name="phoneNumber" label="Phone Number" />
               <FTextField name="address" label="Address" />
               <FTextField name="city" label="City" />
               <FTextField name="country" label="Country" />
             </Box>
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-              <FTextField name="coverUrl" label="Home Profile Cover Image" />
+              <FTextField name="coverUrl" label="Profile Cover Image" />
               <FTextField name="aboutMe" multiline rows={4} label="About me" />
               <LoadingButton
                 type="submit"

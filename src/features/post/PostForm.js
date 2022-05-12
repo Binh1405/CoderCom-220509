@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FormProvider, FTextField } from "../../components/form";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -31,8 +31,15 @@ const PostForm = () => {
   } = methods;
   const dispatch = useDispatch();
   const onSubmit = (data) => {
+    console.log("data", data);
     dispatch(createPost(data)).then(() => reset());
   };
+  const fileInput = useRef();
+  const handleFile = () => {
+    const file = fileInput.current.files[0];
+    if (file) setValue("image", file);
+  };
+
   return (
     <Card sx={{ p: 3 }}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -50,7 +57,7 @@ const PostForm = () => {
               },
             }}
           />
-          <FTextField name="image" placeholder="image" />
+          <input type="file" ref={fileInput} onChange={handleFile} />
           <Box
             sx={{
               display: "flex",

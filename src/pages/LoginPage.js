@@ -72,7 +72,7 @@ const LoginPage = () => {
               Get started
             </Link>
           </Alert>
-          <FTextField name="email" label="email address" />
+          <FTextField name="email" label="Email address" />
           <FTextField
             name="password"
             label="Password"
