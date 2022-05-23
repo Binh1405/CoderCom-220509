@@ -8,6 +8,8 @@ import {
   Typography,
   CardHeader,
   IconButton,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { fDate } from "../../utils/formatTime";
@@ -15,9 +17,25 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PostReaction from "./PostReaction";
 import CommentForm from "../comment/CommentForm";
 import CommentList from "../comment/CommentList";
+import { useDispatch } from "react-redux";
+import { deleteSinglePost } from "./postSlice";
 
 const PostCard = ({ post }) => {
-  console.log("post", post);
+  const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleDelete = () => {
+    dispatch(deleteSinglePost({ postId: post._id }));
+  };
+  const handleUpdate = () => {
+    console.log("update");
+  };
   return (
     <Card>
       <CardHeader
@@ -45,8 +63,32 @@ const PostCard = ({ post }) => {
           </Typography>
         }
         action={
-          <IconButton>
-            <MoreVertIcon sx={{ fontSize: 30 }} />
+          <IconButton
+            id="demo-positioned-button"
+            aria-controls={open ? "demo-positioned-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            sx={{ display: "flex", flexDirection: "end" }}
+          >
+            <MoreVertIcon sx={{ fontSize: 30 }} onClick={handleClick} />
+            <Menu
+              id="demo-positioned-menu"
+              aria-labelledby="demo-positioned-button"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              <MenuItem onClick={handleDelete}>Delete post</MenuItem>
+              <MenuItem onClick={handleUpdate}>Edit post</MenuItem>
+            </Menu>
           </IconButton>
         }
       />

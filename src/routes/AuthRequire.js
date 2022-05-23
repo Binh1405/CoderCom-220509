@@ -3,7 +3,9 @@ import LoadingScreen from "../components/LoadingScreen";
 import useAuth from "../hooks/useAuth";
 
 function AuthRequire({ children }) {
-  const { isInitialized, isAuthenticated } = useAuth();
+  const auth = useAuth();
+  console.log("auth in AuthRequire", auth);
+  const { isInitialized, isAuthenticated } = auth;
   const location = useLocation();
   if (!isInitialized) {
     return <LoadingScreen />;

@@ -53,6 +53,16 @@ const slice = createSlice({
       state.postsById = {};
       state.currentPagePosts = [];
     },
+    deletePostSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const { deletedPost, postId } = action.payload;
+      console.log("deletedPost", deletedPost);
+      state.currentPagePosts = state.currentPagePosts.filter((post) => {
+        if (post._id !== postId) state.postsById = state.postsById[post._id];
+        return state.postsById;
+      });
+    },
   },
 });
 
@@ -66,7 +76,6 @@ export const createPost =
         content,
         image: imageUrl,
       });
-      console.log("response", response);
       dispatch(slice.actions.createPostSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
@@ -106,7 +115,24 @@ export const sendPostReaction =
           postId,
         })
       );
-      console.log("reactions post", response);
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const deleteSinglePost =
+  ({ postId }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.delete(`/posts/${postId}`);
+      console.log("response", response);
+      dispatch(
+        slice.actions.deletePostSuccess({
+          deletedPost: response.data.data,
+          postId,
+        })
+      );
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

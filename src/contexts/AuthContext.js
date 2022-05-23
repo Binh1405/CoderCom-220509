@@ -130,6 +130,7 @@ function AuthProvider({ children }) {
     callback();
   };
   const logout = (callback) => {
+    console.log("ha");
     setSession(null);
     dispatch({ type: LOGOUT });
     callback();
@@ -137,6 +138,7 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const initialize = async () => {
       const accessToken = window.localStorage.getItem("accessToken");
+      console.log(accessToken);
       try {
         if (accessToken & isValidToken(accessToken)) {
           setSession(accessToken);

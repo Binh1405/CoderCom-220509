@@ -28,7 +28,6 @@ const slice = createSlice({
     getCommentsSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      console.log("action.payload", action.payload);
       const { postId, comments, page, count } = action.payload;
       comments.forEach(
         (comment) => (state.commentsById[comment._id] = comment)
@@ -76,7 +75,6 @@ export const getComments =
       const response = await apiService.get(`/posts/${postId}/comments`, {
         params,
       });
-      console.log("comments", response);
       dispatch(
         slice.actions.getCommentsSuccess({
           ...response.data.data,

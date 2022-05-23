@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Profile from "../user/Profile";
 import PostCard from "./PostCard";
 import { getPosts } from "./postSlice";
 
@@ -11,6 +12,8 @@ const PostList = ({ userId }) => {
   const { currentPagePosts, postsById, totalPosts, isLoading } = useSelector(
     (state) => state.post
   );
+  console.log("currentPagePosts", currentPagePosts);
+  console.log("postByIds", postsById);
   const posts = currentPagePosts.map((postId) => postsById[postId]);
   console.log("posts", posts);
   const dispatch = useDispatch();
@@ -19,7 +22,7 @@ const PostList = ({ userId }) => {
   }, [userId, page, dispatch]);
   return (
     <>
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <PostCard key={post._id} post={post} />
       ))}
       <Box sx={{ display: "flex", justifyContent: "center" }} />
