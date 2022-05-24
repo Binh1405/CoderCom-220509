@@ -85,13 +85,14 @@ export const createPost =
 export const getPosts =
   ({ userId, page, limit = POST_PER_PAGE }) =>
   async (dispatch) => {
+    console.log("userId of current user", userId);
     dispatch(slice.actions.startLoading());
     try {
       const params = { page, limit };
       const response = await apiService.get(`/posts/user/${userId}`, {
         params,
       });
-      console.log("response", response);
+      console.log("posts of current user", response);
       if (page === 1) dispatch(slice.actions.resetPosts());
       dispatch(slice.actions.getPostSuccess(response.data.data));
     } catch (error) {

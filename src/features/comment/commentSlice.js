@@ -38,7 +38,7 @@ const slice = createSlice({
       state.totalCommentByPost[postId] = count;
       state.currentPageByPost[postId] = page;
     },
-    sendCommentReaction(state, action) {
+    sendCommentReactionSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
       const { commentId, reactions } = action.payload;

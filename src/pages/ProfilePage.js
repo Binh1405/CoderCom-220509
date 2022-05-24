@@ -15,7 +15,9 @@ const ProfilePage = () => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUser(userId));
+    if (userId) {
+      dispatch(getUser(userId));
+    }
   }, [dispatch, userId]);
   return (
     <Container>

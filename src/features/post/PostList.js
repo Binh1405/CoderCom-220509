@@ -8,6 +8,7 @@ import PostCard from "./PostCard";
 import { getPosts } from "./postSlice";
 
 const PostList = ({ userId }) => {
+  console.log("userId", userId);
   const [page, setPage] = useState(1);
   const { currentPagePosts, postsById, totalPosts, isLoading } = useSelector(
     (state) => state.post

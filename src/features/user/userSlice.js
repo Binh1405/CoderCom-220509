@@ -22,10 +22,10 @@ const slice = createSlice({
       state.error = action.payload;
     },
     getUserSuccess(state, action) {
-      console.log("get user", action.payload);
-      state.selectedUser = action.payload;
       state.isLoading = false;
       state.error = null;
+      console.log("get user", action.payload);
+      state.selectedUser = action.payload;
     },
     updateUserProfileSuccess(state, action) {
       state.isLoading = false;
@@ -36,6 +36,7 @@ const slice = createSlice({
 });
 
 export const getUser = (userId) => async (dispatch) => {
+  console.log("currentUserId", userId);
   dispatch(slice.actions.startLoading());
   try {
     const response = await apiService.get(`/users/${userId}`);
@@ -70,7 +71,7 @@ export const updateUserProfile =
     try {
       const data = {
         name,
-
+        avatarUrl,
         coverUrl,
         aboutMe,
         city,

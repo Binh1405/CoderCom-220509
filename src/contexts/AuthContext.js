@@ -138,12 +138,13 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const initialize = async () => {
       const accessToken = window.localStorage.getItem("accessToken");
-      console.log(accessToken);
+      console.log("accessToken", accessToken);
       try {
         if (accessToken & isValidToken(accessToken)) {
           setSession(accessToken);
-          const response = apiService.get("/users/me");
-          const { user } = response.data;
+          const response = await apiService.get("/users/me");
+          console.log("user me", response);
+          const user = response.data.data;
           dispatch({
             type: INITIALIZE,
             payload: { isAuthenticated: true, user },
