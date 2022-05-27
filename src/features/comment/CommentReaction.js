@@ -3,12 +3,24 @@ import React from "react";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { useDispatch } from "react-redux";
-import { sendCommentReaction } from "./commentSlice";
+import {
+  deleteCommentReaction,
+  getComments,
+  sendCommentReaction,
+} from "./commentSlice";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import useAuth from "../../hooks/useAuth";
 
-const CommentReaction = ({ comment }) => {
+const CommentReaction = ({ comment, postId }) => {
+  const currentUser = useAuth();
+  const userId = currentUser.user._id;
   const dispatch = useDispatch();
   const handleClick = (emoji) => {
     dispatch(sendCommentReaction({ commentId: comment._id, emoji }));
+  };
+  const handleDelete = () => {
+    dispatch(deleteCommentReaction({ commentId: comment._id }));
+    dispatch(getComments(postId));
   };
   return (
     <Stack direction="row" alignItems="center">
@@ -28,6 +40,11 @@ const CommentReaction = ({ comment }) => {
         <ThumbDownAltIcon sx={{ fontSize: 20 }} />
       </IconButton>
       <Typography variant="body2">{comment?.reactions?.dislike}</Typography>
+      {userId === comment.author._id && (
+        <IconButton onClick={handleDelete} sx={{ color: "secondary.main" }}>
+          <ClearRoundedIcon />
+        </IconButton>
+      )}
     </Stack>
   );
 };

@@ -107,7 +107,6 @@ function AuthProvider({ children }) {
         password,
       });
       const { user, accessToken } = response.data.data;
-      console.log("accessToken", accessToken);
       setSession(accessToken);
       dispatch({
         type: LOGIN_SUCCESS,
@@ -140,10 +139,9 @@ function AuthProvider({ children }) {
       const accessToken = window.localStorage.getItem("accessToken");
       console.log("accessToken", accessToken);
       try {
-        if (accessToken & isValidToken(accessToken)) {
+        if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
           const response = await apiService.get("/users/me");
-          console.log("user me", response);
           const user = response.data.data;
           dispatch({
             type: INITIALIZE,

@@ -18,9 +18,10 @@ import PostReaction from "./PostReaction";
 import CommentForm from "../comment/CommentForm";
 import CommentList from "../comment/CommentList";
 import { useDispatch } from "react-redux";
-import { deleteSinglePost } from "./postSlice";
+import { deleteSinglePost, updateSinglePost } from "./postSlice";
 
 const PostCard = ({ post }) => {
+  console.log("post", post);
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -34,7 +35,13 @@ const PostCard = ({ post }) => {
     dispatch(deleteSinglePost({ postId: post._id }));
   };
   const handleUpdate = () => {
-    console.log("update");
+    dispatch(
+      updateSinglePost({
+        postId: post._id,
+        content: post.content,
+        image: post.image,
+      })
+    );
   };
   return (
     <Card>
@@ -69,8 +76,9 @@ const PostCard = ({ post }) => {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             sx={{ display: "flex", flexDirection: "end" }}
+            onClick={handleClick}
           >
-            <MoreVertIcon sx={{ fontSize: 30 }} onClick={handleClick} />
+            <MoreVertIcon sx={{ fontSize: 30 }} />
             <Menu
               id="demo-positioned-menu"
               aria-labelledby="demo-positioned-button"

@@ -30,7 +30,6 @@ const defaultValues = {
 
 const LoginPage = () => {
   const auth = useAuth();
-  console.log("auth", auth);
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
     defaultValues,
@@ -47,9 +46,7 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit = async (data) => {
     const from = location.state?.from?.pathname || "/";
-    console.log("from", from);
     let { email, password } = data;
-    console.log("email and pw", email, password);
     try {
       await auth.login({ email, password }, () => {
         navigate(from, { replace: true });

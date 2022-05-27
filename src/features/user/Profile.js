@@ -9,7 +9,6 @@ import ProfileSocialInfo from "./ProfileSocialInfo";
 
 const Profile = ({ profile }) => {
   const { user } = useAuth();
-  console.log("user", user);
   return (
     <Container>
       <Grid container spacing={3}>

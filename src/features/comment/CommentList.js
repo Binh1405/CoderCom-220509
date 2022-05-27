@@ -24,12 +24,15 @@ const CommentList = ({ postId }) => {
     shallowEqual
   );
   let renderComments;
+  console.log("commentsByPost", commentsByPost);
   if (commentsByPost) {
     const comments = commentsByPost.map((commentId) => commentsById[commentId]);
+    // comments = [comment1, comment2, comment3]
+    console.log("comments", comments);
     renderComments = (
       <Stack spacing={1.5}>
         {comments.map((comment) => (
-          <CommentCard key={comment._id} comment={comment} />
+          <CommentCard key={comment._id} comment={comment} postId={postId} />
         ))}
       </Stack>
     );

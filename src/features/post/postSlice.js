@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import apiService from "../../app/apiService";
 import { POST_PER_PAGE } from "../../app/config";
 import { cloudinaryUpload } from "../../utils/cloudinary";
@@ -53,15 +54,18 @@ const slice = createSlice({
       state.postsById = {};
       state.currentPagePosts = [];
     },
-    deletePostSuccess(state, action) {
+    deleteSinglePostSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      const { deletedPost, postId } = action.payload;
-      console.log("deletedPost", deletedPost);
+      const { postId } = action.payload;
       state.currentPagePosts = state.currentPagePosts.filter((post) => {
-        if (post._id !== postId) state.postsById = state.postsById[post._id];
-        return state.postsById;
+        if (post !== postId) return true;
+        return false;
       });
+    },
+    updateSinglePostSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
     },
   },
 });
@@ -129,13 +133,31 @@ export const deleteSinglePost =
       const response = await apiService.delete(`/posts/${postId}`);
       console.log("response", response);
       dispatch(
-        slice.actions.deletePostSuccess({
+        slice.actions.deleteSinglePostSuccess({
           deletedPost: response.data.data,
           postId,
         })
       );
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const updateSinglePost =
+  ({ postId, content, image }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.put(`/posts/${postId}`, {
+        content,
+        image,
+      });
+      console.log("updated post", response);
+      dispatch(slice.actions.updateSinglePostSuccess(response.data.data));
+      toast.success("update post success");
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
     }
   };
 export default slice.reducer;
