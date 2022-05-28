@@ -4,7 +4,7 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { useDispatch } from "react-redux";
 import {
-  deleteCommentReaction,
+  deleteComment,
   getComments,
   sendCommentReaction,
 } from "./commentSlice";
@@ -19,8 +19,8 @@ const CommentReaction = ({ comment, postId }) => {
     dispatch(sendCommentReaction({ commentId: comment._id, emoji }));
   };
   const handleDelete = () => {
-    dispatch(deleteCommentReaction({ commentId: comment._id }));
-    dispatch(getComments(postId));
+    dispatch(deleteComment({ commentId: comment._id }));
+    dispatch(getComments({ postId }));
   };
   return (
     <Stack direction="row" alignItems="center">
