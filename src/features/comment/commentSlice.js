@@ -127,6 +127,7 @@ export const deleteComment =
       console.log("deleted comment", response);
       dispatch(slice.actions.deleteCommentSuccess(response.data.data));
       toast.success("Delete a comment successfully");
+      dispatch(getComments({ postId: response.data.data.post }));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
       toast.error(error.message);

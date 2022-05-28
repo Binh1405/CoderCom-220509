@@ -20,7 +20,6 @@ const CommentReaction = ({ comment, postId }) => {
   };
   const handleDelete = () => {
     dispatch(deleteComment({ commentId: comment._id }));
-    dispatch(getComments({ postId }));
   };
   return (
     <Stack direction="row" alignItems="center">
