@@ -117,7 +117,6 @@ export const sendCommentReaction =
       dispatch(slice.actions.hasError(error.message));
     }
   };
-
 export const deleteComment =
   ({ commentId }) =>
   async (dispatch) => {

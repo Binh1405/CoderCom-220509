@@ -32,7 +32,12 @@ const PostCard = ({ post }) => {
     setAnchorEl(null);
   };
   const handleDelete = () => {
-    dispatch(deleteSinglePost({ postId: post._id }));
+    let text = "You will delete this post";
+    if (window.confirm(text) === true)
+      dispatch(deleteSinglePost({ postId: post._id }));
+    else {
+      return false;
+    }
   };
   const handleUpdate = () => {
     dispatch(

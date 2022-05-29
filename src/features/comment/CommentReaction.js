@@ -19,7 +19,12 @@ const CommentReaction = ({ comment, postId }) => {
     dispatch(sendCommentReaction({ commentId: comment._id, emoji }));
   };
   const handleDelete = () => {
-    dispatch(deleteComment({ commentId: comment._id }));
+    let text = "Press confirm to delete the comment";
+    if (window.confirm(text) === true)
+      dispatch(deleteComment({ commentId: comment._id }));
+    else {
+      return false;
+    }
   };
   return (
     <Stack direction="row" alignItems="center">
