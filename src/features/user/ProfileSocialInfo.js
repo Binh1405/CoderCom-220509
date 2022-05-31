@@ -14,6 +14,7 @@ const IconStyle = styled(Box)(({ theme }) => ({
   marginRight: theme.spacing(2),
 }));
 const ProfileSocialInfo = ({ profile }) => {
+  console.log("profile of current user", profile);
   const { facebookLink, instagramLink, linkedinLink, twitterLink } = profile;
   const SOCIAL_LINKS = [
     {

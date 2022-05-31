@@ -17,8 +17,8 @@ const RootStyle = styled("div")(({ theme }) => ({
 
 const DropZoneStyle = styled("div")({
   zIndex: 0,
-  width: "100%",
-  height: "100%",
+  width: "100px",
+  height: "100px",
   outline: "none",
   display: "flex",
   overflow: "hidden",

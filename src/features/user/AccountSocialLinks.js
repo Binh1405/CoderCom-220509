@@ -17,7 +17,7 @@ const SOCIAL_LINKS = [
     icon: <LinkedInIcon sx={{ fontSize: 30 }} />,
   },
   {
-    value: "githubLink",
+    value: "instagramLink",
     icon: <GitHubIcon sx={{ fontSize: 30 }} />,
   },
   {
@@ -35,7 +35,7 @@ function AccountSocialLinks() {
   const { user } = useAuth();
   const defaultValues = {
     linkedinLink: user?.linkedinLink || "",
-    githubLink: user?.instagramLink || "",
+    instagramLink: user?.instagramLink || "",
     facebookLink: user?.facebookLink || "",
     twitterLink: user?.twitterLink || "",
   };
