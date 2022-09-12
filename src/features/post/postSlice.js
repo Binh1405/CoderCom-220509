@@ -35,8 +35,8 @@ const slice = createSlice({
       state.error = null;
       const { count, posts } = action.payload;
       console.log("posts", posts);
-      if (state.currentPagePosts.length % POST_PER_PAGE === 0)
-        state.currentPagePosts.pop();
+      // if (state.currentPagePosts.length % POST_PER_PAGE === 0)
+      //   state.currentPagePosts.pop();
       posts.forEach((post) => {
         state.postsById[post._id] = post;
         if (!state.currentPagePosts.includes(post._id))
